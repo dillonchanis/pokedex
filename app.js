@@ -4,8 +4,10 @@ var router = require("./router.js");
 //Create the web server
 var http = require("http");
 http.createServer(function(request, response){
+	//Route to home page
 	router.home(request, response);
-	response.end("It works!");
+	//Route to user page
+	router.user(request, response);
 }).listen(8080);
 
-console.log('The server is running.');"C:\Users\Owner\Documents\Professional\Instagram"
+console.log('The server is running.');
