@@ -24,7 +24,6 @@ function home(request, response) {
 			request.on("data", function(postBody){
 				//extract the pokemon's name
 				var query = querystring.parse(postBody.toString());
-				response.write(query.pokemon);
 				//Redirect to the pokemon name
 				response.writeHead(303, {"Location": "/" + query.pokemon});
 				response.end();
@@ -41,7 +40,7 @@ function user(request, response){
 	//Make sure a pokemon name was entered
 	if(pokemon.length > 0){
 		response.writeHead(200, commonHeaders);
-		response.write("Header\n");
+		renderer.view("header", {}, response);
 
 		//get the JSON data from the pokemon API
 		var pokemonProfile = new Profile(pokemon);
@@ -54,16 +53,18 @@ function user(request, response){
 			}
 
 			//simple response
-			response.write(values.pokeName + " is of type " + values.pokeType + " and is number " + values.pokeId + 
-				". Sprite(" + values.pokeSprite + ")\n");
-			response.end("Footer\n");
+			renderer.view("profile", values, response);
+			renderer.view("footer", {}, response);
+			response.end();
 		});
 
 		//on error
 		pokemonProfile.on("error", function(error){
 			//show error
-			response.write(error.message + "\n");
-			response.end("Footer\n");
+			renderer.view("error", {errorMessage: error.message}, response);
+			renderer.view("search", {}, response);
+			renderer.view("footer", {}, response);
+			response.end();
 		});
 	}
 }
