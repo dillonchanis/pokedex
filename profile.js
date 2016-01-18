@@ -1,5 +1,6 @@
 var http = require("http");
 var EventEmitter = require("events").EventEmitter;
+var util = require("util");
 
 //Function to get Pokemon Info
 function Profile(pokemon) {
@@ -25,7 +26,7 @@ function Profile(pokemon) {
 
 		//Read the data chunks we recieve back in our 'body' var.
 		//This will be a string 
-		response.on('data' function(chunk){
+		response.on('data', function(chunk){
 			body += chunk;
 			profileEmitter.emit("data", chunk);
 		});
@@ -49,6 +50,8 @@ function Profile(pokemon) {
 	});//end of request
 
 }//end of Profile
+
+util.inherits( Profile, EventEmitter );
 
 //Export
 module.exports = Profile;
