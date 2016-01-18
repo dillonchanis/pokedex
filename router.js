@@ -1,7 +1,6 @@
 //Scripts to handle the webpage routing
 
 var Profile = require("./profile.js");
-var querystring = require("querystring");
 
 var commonHeaders = {'Content-Type': 'text/html'};
 
@@ -27,8 +26,29 @@ function user(request, response){
 	if(pokemon.length > 0){
 		response.writeHead(200, commonHeaders);
 		response.write("Header\n");
-		response.write(pokemon + "\n");
-		response.end("Footer\n");
+
+		//get the JSON data from the pokemon API
+		var pokemonProfile = new Profile(pokemon);
+		pokemonProfile.on("end", function(profileJSON){
+			var values = {
+				pokeSprite : profileJSON.sprites.resource_uri,
+				pokeName : profileJSON.name,
+				pokeType : profileJSON.types.name,
+				pokeId : profileJSON.pkdx_id
+			}
+
+			//simple response
+			response.write(values.pokeName + " is of type " + values.pokeType + " and is number " + values.pokeId + 
+				". Sprite(" + values.pokeSprite + ")\n");
+			response.end("Footer\n");
+		});
+
+		//on error
+		pokemonProfile.on("error", function(error){
+			//show error
+			response.write(error.message + "\n");
+			response.end("Footer\n");
+		});
 	}
 }
 
