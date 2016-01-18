@@ -31,7 +31,7 @@ function user(request, response){
 		var pokemonProfile = new Profile(pokemon);
 		pokemonProfile.on("end", function(profileJSON){
 			var values = {
-				pokeSprite : profileJSON.sprites.resource_uri,
+				pokeSprite : profileJSON.sprites[0].resource_uri,
 				pokeName : profileJSON.name,
 				pokeType : profileJSON.types.name,
 				pokeId : profileJSON.pkdx_id
