@@ -1,6 +1,7 @@
 //Scripts to handle the webpage routing
 
 var Profile = require("./profile.js");
+var renderer = require("./renderer.js");
 
 var commonHeaders = {'Content-Type': 'text/html'};
 
@@ -11,9 +12,10 @@ function home(request, response) {
 	if(request.url === "/"){
 		//show content
 		response.writeHead(200, commonHeaders);
-		response.write("Header\n");
-		response.write("Search\n");
-		response.end("Footer\n");
+		renderer.view("header", {}, response);
+		renderer.view("search", {}, response);
+		renderer.view("footer", {}, response);
+		response.end();
 	}
 }
 
@@ -31,7 +33,7 @@ function user(request, response){
 		var pokemonProfile = new Profile(pokemon);
 		pokemonProfile.on("end", function(profileJSON){
 			var values = {
-				pokeSprite : profileJSON.sprites[0].resource_uri,
+				pokeSprite : "http://pokeapi.co/media/img/" + profileJSON.pkdx_id + ".png",
 				pokeName : profileJSON.name,
 				pokeType : profileJSON.types.name,
 				pokeId : profileJSON.pkdx_id
