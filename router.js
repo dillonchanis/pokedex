@@ -54,6 +54,7 @@ function user(request, response){
 	}
 }
 
+
 //Export to be used in app.js
 module.exports.home = home;
 module.exports.user = user;

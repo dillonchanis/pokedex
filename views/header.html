@@ -4,6 +4,89 @@
 	<meta charset="utf-8">
 	<title>Pokedex</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="main.css">
+	<style type="text/css" media="screen">
+		body {
+			background: #ECEEEF;
+		    text-align: center;
+		    margin: 100px auto;
+		    max-width: 462px;
+		    padding: 0 40px;
+		    font: 18px normal Helvetica, serif;
+		    color: #777B7E;
+
+		}
+
+		img {
+			width: 100%;
+		}
+
+		#searchIcon, #sprite {
+		    width: 70%;
+		    margin: 0 15% 0 15%;
+		}
+
+		input {
+		    font-family: Helvetica, serif;
+		    font-size: 18px;
+		    padding: 31px 0;
+		    margin: 10px 0;
+		    text-align: center;
+		    width: 360px;
+		    border-radius: 4px;
+		    border: 1px solid #D5DDE4;
+		    color: #2C3238;
+		}
+
+		#pokemon {
+			margin: 20px 0 0;
+		}
+
+		.button {
+			border-color: #ffcb05;
+			background: #ffcb05;
+			color: #fff;
+		}
+
+		.profile {
+			background: #fff;
+			border-radius: 5px;
+			border: 1px solid #D5DDE4;
+			padding: 40px 0 0;
+			margin: -40px 0 0;
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 40px 0 0;
+		}
+
+		li {
+			display: inline-block;
+			width: 100%;
+			padding: 22px 0;
+			margin: 0;
+			border-top: 1px solid #D5DDE4;
+		}
+
+		a, a:visited {
+		    color: #5FB6E1;
+		    text-decoration: none;
+		}
+
+		span {
+			color: #000;
+		}
+
+		.error {
+			width: 100%;
+			padding: 22px 0;
+			background: #E87682;
+			color: #D11326;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
 </head>
 <body>
