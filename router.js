@@ -25,6 +25,8 @@ function home(request, response) {
 				//extract the pokemon's name
 				var query = querystring.parse(postBody.toString());
 				response.write(query.pokemon);
+				//Redirect to the pokemon name
+				response.writeHead(303, {"Location": "/" + query.pokemon});
 				response.end();
 			});
 		}
