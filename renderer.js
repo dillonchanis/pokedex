@@ -13,7 +13,7 @@ function mergeValues(values, content) {
 function view(templateName, values, response){
 	//Read from template file
 	//Don't want async, order matters
-	var fileContents = fs.readFileSync('./views/' + templateName + '.html');
+	var fileContents = fs.readFileSync('./views/' + templateName + '.html', {enconding: "utf8"});
 
 	//Insert values to the content
 	fileContents = mergeValues(values, fileContents);

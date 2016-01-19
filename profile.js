@@ -10,7 +10,7 @@ function Profile(pokemon) {
     profileEmitter = this;
 
 	//Connect to the API
-	var request = http.get("http://pokeapi.co/api/v1/pokemon/" + pokemon + "/", function(response){
+	var request = http.get("http://pokeapi.co/api/v1/pokemon/" + pokemon.toLowerCase() + "/", function(response){
 	
 		//Will hold the data that streams in
 		var body = "";
