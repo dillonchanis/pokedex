@@ -8,6 +8,7 @@ http.createServer(function(request, response){
 	router.home(request, response);
 	//Route to user page
 	router.user(request, response);
-}).listen(8080);
+}).listen(8080);//Listening on PORT 8080, can place your own
 
+//Log to the command prompt that the server is running
 console.log('The server is running.');

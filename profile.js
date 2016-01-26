@@ -15,7 +15,7 @@ function Profile(pokemon) {
 		//Will hold the data that streams in
 		var body = "";
 
-		//Connection error
+		//Connection error, IF NOT SUCCESSFUL
 		if(response.statusCode !== 200){
 			//abort the request
 			request.abort();

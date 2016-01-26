@@ -1,9 +1,11 @@
 //Scripts to handle the webpage routing
 
+//Utilize other files 
 var Profile = require("./profile.js");
 var renderer = require("./renderer.js");
 var querystring = require("querystring");
 
+//Trying to keep code DRY, this is a common header type used 
 var commonHeaders = {'Content-Type': 'text/html'};
 
 //Handle HTTP route GET
@@ -12,7 +14,7 @@ function home(request, response) {
 	//if url == "/" && GET
 	if(request.url === "/"){
 		if(request.method.toLowerCase() === 'get'){
-			//show content
+			//show content, render the appropriate templates
 			response.writeHead(200, commonHeaders);
 			renderer.view("header", {}, response);
 			renderer.view("search", {}, response);
@@ -32,9 +34,9 @@ function home(request, response) {
 	}
 }
 
-//User's profile page routing
+//Pokemon's profile page routing
 function user(request, response){
-	//if url === "/{pokemon}"
+	//if url === "/{name_of_pokemon}"
 	//take away the / and extract the pokemon name
 	var pokemon = request.url.replace("/", "");
 	//Make sure a pokemon name was entered
@@ -45,6 +47,8 @@ function user(request, response){
 		//get the JSON data from the pokemon API
 		var pokemonProfile = new Profile(pokemon);
 		pokemonProfile.on("end", function(profileJSON){
+			//Get the JSON data that was parsed in Profile constructor
+			//Place them in the value object so that the template can handle it
 			var values = {
 				pokeSprite : "http://pokeapi.co/media/img/" + profileJSON.pkdx_id + ".png",
 				pokeName : profileJSON.name,
@@ -52,7 +56,7 @@ function user(request, response){
 				pokeId : profileJSON.pkdx_id
 			}
 
-			//simple response
+			//simple response, render the pokemon's profile template + footer
 			renderer.view("profile", values, response);
 			renderer.view("footer", {}, response);
 			response.end();
@@ -60,7 +64,7 @@ function user(request, response){
 
 		//on error
 		pokemonProfile.on("error", function(error){
-			//show error
+			//show error message
 			renderer.view("error", {errorMessage: error.message}, response);
 			renderer.view("search", {}, response);
 			renderer.view("footer", {}, response);

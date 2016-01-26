@@ -1,5 +1,8 @@
+//Use Node's file system
 var fs = require("fs");
 
+//Take placeholders that were put inside the HTML templates
+//Replace the placeholder {} with the passed in values object
 function mergeValues(values, content) {
 	//Cycle over the keys of values object
 	for(var key in values) {
@@ -10,8 +13,10 @@ function mergeValues(values, content) {
 	return content;
 }
 
+//Function to use Node's fs to serve HTML templates
 function view(templateName, values, response){
 	//Read from template file
+	//With the asynchronous methods there is no guaranteed ordering
 	//Don't want async, order matters
 	var fileContents = fs.readFileSync('./views/' + templateName + '.html', {enconding: "utf8"});
 
